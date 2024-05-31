@@ -13,3 +13,5 @@ console.log(details)
 
 let age = 15;
 console.log(`I like to drink ${age >= 18 ? "wine 🍷" : "water 💧"}`)
+
+let 
