@@ -13,9 +13,10 @@
 */
 
 'use strict'
-const sentence = `Hello My name is Lokesh Jangale Error ERROR lokeshjangle@gmail.com ypatil@yahoo.com`;
-// const sentence = `I am lokesh am I`;
+// const sentence = `Hello My name is Lokesh Jangale Error ERROR lokeshjangle@gmail.com ypatil@yahoo.com`;
+const sentence = `I am lokesh am I`;
 const arr = sentence.split(" ");
+
 
 //======================COUNT WORD===================
 const countWord = function (arr) {

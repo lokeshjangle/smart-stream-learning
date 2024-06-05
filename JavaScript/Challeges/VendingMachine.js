@@ -16,17 +16,22 @@ const vendingMachine = {
     items: [
         {
             name: "Coffee",
-            price: 20.0,
+            price: 20.22,
             quantity: 10
         },
         {
             name: "Chocolate",
             price: 1.0,
             quantity: 100
+        },
+        {
+            name: "tea",
+            price: 499.0,
+            quantity: 100
         }
     ],
     dispense: function (itemName, quantity) {
-        let isItemFound = false;
+        let isItemFound;
         for (let i = 0; i < this.items.length; i++) {
             let item = this.items[i];
             if (item.name === itemName) {
@@ -59,31 +64,33 @@ const vendingMachine = {
     }
 }
 
-// vendingMachine.dispense("Coffee", 9);
+// vendingMachine.dispense("tea", 1);
 // console.log(vendingMachine);
-// vendingMachine.addDeposite(200);
-// console.log(vendingMachine.deposit);
-let i = 0;
-while (i !== 3) {
-    console.log("1: Buy Item \n2: Add Deposite \n3: Exit");
-    let choice = 1;
-    switch (choice) {
-        case 1:
-            vendingMachine.dispense("Coffe", 3);
-            console.log(vendingMachine);
-            i = 3;
-            break;
-        case 2:
-            vendingMachine.addDeposite(200);
-            console.log(vendingMachine);
-            i = 3;
-            break;
-        case 3:
-            i = 3;
-            break;
-        default:
-            console.log("Select between 1-3");
-            i = 3;
-            break;
-    }
-}
+// vendingMachine.dispense("Coffee", 1);
+// console.log(vendingMachine);
+vendingMachine.addDeposite(200);
+console.log(vendingMachine.deposit);
+// let i = 0;
+// while (i !== 3) {
+//     console.log("1: Buy Item \n2: Add Deposite \n3: Exit");
+//     let choice = 1;
+//     switch (choice) {
+//         case 1:
+//             vendingMachine.dispense("Coffe", 3);
+//             console.log(vendingMachine);
+//             i = 3;
+//             break;
+//         case 2:
+//             vendingMachine.addDeposite(200);
+//             console.log(vendingMachine);
+//             i = 3;
+//             break;
+//         case 3:
+//             i = 3;
+//             break;
+//         default:
+//             console.log("Select between 1-3");
+//             i = 3;
+//             break;
+//     }
+// }

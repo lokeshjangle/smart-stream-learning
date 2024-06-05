@@ -23,9 +23,9 @@ const showMovieDetails = function (movieList) {
 };
 
 const filterMovie = function (genre) {
-    let isMovieFound = false;
+    let isMovieFound;
     movieList.forEach(movie => {
-        if (movie.genre === genre) {
+        if (movie.genre.toUpperCase() === genre.toUpperCase()) {
             console.log(movie.title);
             isMovieFound = true;
         }
