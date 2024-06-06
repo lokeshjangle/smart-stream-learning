@@ -5,6 +5,7 @@ function first() {
 
     if (age >= 30) {
         const decade = 3;
+        console.log(newName);
         var millenial = true;
     }
     // console.log(decade);  -->ReferenceError: decade is not defined

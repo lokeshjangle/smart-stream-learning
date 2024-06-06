@@ -46,7 +46,7 @@ Locator in selenium:
 		- Descendants
 
 	- Types of XPath:
-		1) Absolute Xpath: 
+		1) Absolute XPath: 
 			- It has a xpath from root element
 				eg: /html/body/div/div/section/div/div/input
 			- Direct way to locate an element
@@ -113,7 +113,7 @@ Disadvantages of XPath
 
 
 --> Position and index
-	- If multiple element present with same tag or attribute so to select/locat that element we use position() function and index
+	- If multiple element present with same tag or attribute so to select/locate that element we use position() function and index
 
 1) index:
 	- index is start from 1 to go on 
@@ -121,7 +121,7 @@ Disadvantages of XPath
 		eg: h5[2]
 
 2) position():
-	- It is a function or property where we can pass index to locat element
+	- It is a function or property where we can pass index to locate element
 	- Syntax: tag[position() = index]
 		eg: h5[position() = 2]
 
@@ -139,22 +139,22 @@ Disadvantages of XPath
 	- last() is a function to select last matching element 
 	- Syntax: tag[last()]
 		eg: h5[last()]   --> it is select last h5 element in webpage
-	- we can also perform some substraction/operation using  last function
+	- we can also perform some subtraction/operation using  last function
 		eg: h5(last()-1]  --> it is select second last h5 element in webpage
 
---> Xpath Expression indexing:
-	- if we dont have any id or attribute for locat and xpath pointing to multiple location so we can use index to identify that xpath
-	- Syntax: (xpath-Expression)[index]
+--> XPath Expression indexing:
+	- if we don't have any id or attribute for locate and xpath pointing to multiple location so we can use index to identify that xpath
+	- Syntax: (XPath-Expression)[index]
 		eg: (//div[@class="row"])[2] 
 			|
-			|-> xpath //div[@class="row"]  return multiple row so if we want to 2 row so we mention [2] index 
+			|-> xpath //div[@class="row"]  return multiple row so if we want to 2nd row so we mention [2] index 
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 --> Different XPath functions:
  - This function is use for Dynamic XPath generator
 1) Last() : finding the last element of webpage
-2) Position() : use to find element by index
+2) Position() : use to find element by index position.
 3) Contains() : Find the element by particular content present in that tag or not --> eg: //body[contains(@class,'page-id-400')]  --> It check mentioned class are present in body-class or not if present than select body element
 4) Starts-with() : find the element from start-with particular text() --> eg: //h1[starts-with(text(),'Log in')] 
 5) Text() : To find the element by text() --> eg: //h1[text()='log in']
@@ -166,7 +166,11 @@ Disadvantages of XPath
 --> XPath Operators:
 	- In xpath there is following operator:  =,!=,<,>,and,or,div(division)
 	- or: or operator is use for if we want to select element by checking one of them condition satisfied
+		Syntax: //element[condition1 or condition2]
+		eg: //title[parent::zipcode or parent::book]
 	- and: and operator is use when we want to select element by checking if and only if all condition is satisfied
+		Syntax: //element[condition1 and condition2]
+		eg: //a[b = 'value1' and b = 'value2']/@id
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -179,9 +183,11 @@ Disadvantages of XPath
 
 
 --> XPath Axes:
+	- An axis represents a relationship to the context (current) node, and is used to locate nodes relative to that node on the tree.
+	- XPath axes is use for dynamic XPath. 
 	- XPath axes are those axes that are used to search for the multiple nodes in the XML document form the current node context.
 	- These method are mainly used when the web element is not identified with the help of ID , name, className, link text, css selector
-	- In many cases there are many element present in webpage without attibute, so it is difficult to identify element using old xpath formula thats why we use Axes to locat element
+	- In many cases there are many element present in webpage without attribute, so it is difficult to identify element using old xpath formula thats why we use Axes to locat element
 
 	- Syntax :  axesname::nodetest[predicate]
 	1) ancestor : select all ancestor node of current node like parent, grand-parent etc
