@@ -41,11 +41,13 @@ const { sat, ...weekDays } = restaurant.openingHours;
 console.log(weekDays);
 
 //function
-const display = function (...numbers) {
-  console.log(numbers);
+const display = function (a, ...numbers) {
+  //console.log(a, ...numbers);//100 20 2 3 4 5 6
+  console.log(a, numbers);
 };
 display(2, 3); //[2,3]
+
 display(2, 3, 4, 5); //[2,3,4,5]
 
 const x = [20, 2, 3, 4, 5, 6];
-display(...x);
+display(100, ...x); //100 [ 20, 2, 3, 4, 5, 6 ]
