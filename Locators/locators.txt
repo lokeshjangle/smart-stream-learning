@@ -207,8 +207,7 @@ Disadvantages of XPath
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-===> Note: Writing XPath for <svg> and it child element is different 
-	you can find through wildcard value
+===> Note: Writing XPath for <svg> and it child element is different you can find through wildcard value
 	eg: //*[@y='11']
 
 
