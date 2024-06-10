@@ -57,3 +57,9 @@ const ratings = [
 ];
 const [[, rating], [, ratingsCount]] = ratings;
 console.log(rating, ratingsCount);
+
+//Swapping value of 2 variable using array destruturing
+let o = 12;
+let m = 13;
+[m, o] = [o, m];
+console.log(o, m);

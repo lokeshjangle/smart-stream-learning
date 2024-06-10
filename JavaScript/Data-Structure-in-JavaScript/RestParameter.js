@@ -38,7 +38,7 @@ console.log(a, b, others); //1 2 [ 3, 4, 5 ]
 
 //Objects
 const { sat, ...weekDays } = restaurant.openingHours;
-console.log(weekDays);
+console.log(weekDays); //{ thu: { open: 12, close: 22 }, fri: { open: 11, close: 23 } }
 
 //function
 const display = function (a, ...numbers) {

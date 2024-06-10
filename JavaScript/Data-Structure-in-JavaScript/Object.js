@@ -65,3 +65,6 @@ const {
   fri: { open, close },
 } = restaurant.openingHours;
 console.log(open, close); //11 23
+
+const { fri } = restaurant.openingHours;
+console.log(fri); //{ open: 11, close: 23 }
