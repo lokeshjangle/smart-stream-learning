@@ -1,24 +1,26 @@
 'use strict';
+const openingHours = {
+  thu: {
+    open: 12,
+    close: 22,
+  },
+  fri: {
+    open: 11,
+    close: 23,
+  },
+  sat: {
+    open: 0,
+    close: 24,
+  },
+};
+
 const restaurant = {
   name: 'Classico Italiano',
   location: 'Via Angelo Tavanti 23, Firenze, Italy',
   categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
   starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
   mainMenu: ['Pizza', 'Pasta', 'Risotto'],
-  openingHours: {
-    thu: {
-      open: 12,
-      close: 22,
-    },
-    fri: {
-      open: 11,
-      close: 23,
-    },
-    sat: {
-      open: 0,
-      close: 24,
-    },
-  },
+  openingHours,
   order: function (starterIndex, mainIndex) {
     return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
   },
@@ -51,4 +53,32 @@ for (const item of menu.entries()) {
 console.log('-------Array Destructuring----------');
 for (const [i, item] of menu.entries()) {
   console.log(`${i}: ${item}`);
+}
+
+console.log('-------Looping over object----------------');
+// for (const day of Object.keys(openingHours)) {
+//   console.log(day);
+// } //array of keys
+
+const properties = Object.keys(openingHours); //To find keys of object
+console.log(properties); //[ 'thu', 'fri', 'sat' ]
+// console.log(`We are open on ${properties.length} days`);
+let openStr = `We are open on ${properties.length} days: `;
+
+for (const day of properties) {
+  openStr += `${day} `;
+}
+
+console.log(openStr);
+
+//To find values of keys in object
+const value = Object.values(openingHours);
+console.log(value);
+
+//use of .entries() function to print element with key and value
+const entries = Object.entries(openingHours);
+console.log(entries);
+
+for (const [day, { open, close }] of entries) {
+  console.log(`On ${day} we open ate ${open} and close at ${close}`);
 }
