@@ -76,7 +76,7 @@ const value = Object.values(openingHours);
 console.log(value);
 
 //use of .entries() function to print element with key and value
-const entries = Object.entries(openingHours);
+const entries = Object.entries(restaurant);
 console.log(entries);
 
 for (const [day, { open, close }] of entries) {

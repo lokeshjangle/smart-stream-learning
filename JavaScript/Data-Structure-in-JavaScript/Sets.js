@@ -11,7 +11,7 @@ const orderSet = new Set([
 console.log(orderSet); //Set(4) { 'Pizza', 'Pasta', 'Risotto', 'pizza' }
 
 //Set with string iterable
-console.log(new Set('Lokesh')); //Set(6) { 'L', 'o', 'k', 'e', 's', 'h' }
+console.log(new Set('Lokeshhh')); //Set(6) { 'L', 'o', 'k', 'e', 's', 'h' }
 
 //length of set
 console.log(orderSet.size); //4
@@ -45,7 +45,7 @@ console.log(staffUnique);
 
 console.log(
   new Set(['Waiter', 'Chef', 'Waiter', 'Manager', 'Chef', 'Waiter']).size
-);
+); //3
 
 //Find the unique charater from string
 console.log(new Set('Lokesh Jangale'));

@@ -59,7 +59,7 @@ console.log(letter); //['L', 'o',  'k','e', 's',  'h',' ', 'J.' ]
 function display(name1, name2, name3) {
   console.log(name1, name2, name3);
 }
-const nameArr = ['lokesh', 'Yashwant', 'Vikram'];
+const nameArr = ['lokesh', 'Yashwant', 'Vikram', 'Samir'];
 display(...nameArr); //lokesh Yashwant Vikram
 
 //Objects

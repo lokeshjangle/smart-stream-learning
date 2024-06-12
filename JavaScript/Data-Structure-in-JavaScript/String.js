@@ -42,3 +42,91 @@ const checkMiddelSeat = function (seat) {
 checkMiddelSeat('11B');
 checkMiddelSeat('23C');
 checkMiddelSeat('3E');
+
+//Change to lowecase and uppercase
+console.log(airline.toLowerCase());
+console.log(airline.toUpperCase());
+
+//trim() methods -->Remove spaces from start and end of string
+const str = ' Lokesh Jangale ';
+console.log(str.trim());
+console.log(str.trimStart() + 'k'); //Remove spaces from start
+console.log(str.trimEnd()); //Remove spaces form end
+
+//Replace method to replace character/word in string
+const priceGB = '288,97£';
+const priceUS = priceGB.replace('£', '$').replace(',', '.');
+console.log(priceUS);
+
+const annoucement =
+  'All passengers come to boarding door 23, Boarding door 23!';
+console.log(annoucement.replace('door', 'gate')); //It will not replace all occurance of door in string it only replace first occurance to replace all occurance we need replace with regular expression
+console.log(annoucement.replace(/door/g, 'gate')); //it replace all the occurrace where 'g' stands for global
+
+//inclue() method: checking given string present in original string or not. It will return true and false
+const plane = 'Airbus A320neo';
+console.log(plane.includes('A320')); //true
+console.log(plane.includes('Being')); //false
+
+//.startsWith() --> check given string start with given parameter or not
+//.endsWith() --> check given string end with given parameter or not
+console.log(plane.startsWith('Air')); //true
+console.log(plane.endsWith('neo')); //true
+
+//practice exercise
+const checkBaggage = function (items) {
+  const baggage = items.toLowerCase();
+  if (baggage.includes('knife') || baggage.includes('gun')) {
+    console.log('You are NOT allowed on board');
+  } else {
+    console.log('Welcome abroad!');
+  }
+};
+
+checkBaggage('I have a laptop,some food and a packet of Knife');
+checkBaggage('Socks and camera');
+checkBaggage('Got some snacks and a gun for protection');
+
+//Split() --> Divide a string in multiple part from given character and store in array
+console.log('a+very+nice+string'.split('+')); //[ 'a', 'very', 'nice', 'string' ]
+console.log('Lokesh Jangale'.split(' ')); //[ 'Lokesh', 'Jangale' ]
+const [firstName, lastName] = 'Lokesh Jangale'.split(' ');
+console.log(firstName, lastName);
+
+//Join() --> Compress multiple string in single string
+const newName = ['Mr.', firstName, lastName.toUpperCase()].join(' ');
+console.log(newName); //Mr. Lokesh JANGALE
+
+//Capitalization of word
+const capitalizeName = function (name) {
+  const names = name.split(' ');
+  const namesUpper = [];
+  for (const n of names) {
+    namesUpper.push(n[0].toUpperCase() + n.slice(1));
+  }
+  console.log(namesUpper.join(' '));
+};
+capitalizeName('jessica ann smith davis');
+capitalizeName('lokesh jangale');
+
+//convert string into CamelCase
+const camelCase = function (name) {
+  const names = name.split(' ');
+  const firstWord = names[0].toLowerCase();
+  const camelCase = [firstWord];
+  names.shift(); //remove first element from aray
+  for (const n of names) {
+    camelCase.push(n.replace(n[0], n[0].toUpperCase()));
+  }
+  console.log(camelCase.join(''));
+};
+camelCase('Lokesh jangale');
+
+//Padding a string
+const message = 'Go to gae 23!';
+console.log(message.padStart(25, '+'));
+console.log(message.padEnd(25, '+'));
+
+//repeat() --> Repeat given string
+const message2 = 'Bad weather... All Departures Delayed... ';
+console.log(message2.repeat(5)); //Return string 5 time with concatenate with each other.
