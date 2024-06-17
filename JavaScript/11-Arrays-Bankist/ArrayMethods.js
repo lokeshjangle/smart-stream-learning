@@ -126,3 +126,76 @@ console.log(withdrawal); //-400
 
 const ch = movements.forEach(mov => mov);
 console.log(ch);
+
+//findIndex() method: -> is used to find index of value
+console.log(movements.findIndex(param => param === 70)); //6
+
+//some() method: -> It will return true by finding any value in array based on the given condition
+//Equality
+// console.log(movements.includes(-130)); //true
+
+//Condition
+console.log(movements.some(mov => mov === -130)); //true
+const anyDeposits = movements.some(mov => mov > 0);
+console.log(anyDeposits); //true
+
+//Every() method:-> It only return true if all element in array satisfy the given conditoin
+console.log(movements.every(mov => mov > 0)); //false
+console.log(movements.every(mov => mov % 10 == 0)); //true
+
+//flat() method:-> merge all nested array into one big array , it goes only one level to merge
+const arrr = [[1, 2, 3, 4], [5, 6], 7, 8];
+console.log(arrr.flat()); //[1, 2, 3, 4, 5, 6, 7, 8]
+
+const arrDeep = [[[1, 2], 3, 4], [5, 6], 7, 8];
+console.log(arrDeep.flat()); //[[1, 2 ], 3, 4, 5, 6, 7, 8 ]
+console.log(arrDeep.flat(2)); //[1, 2, 3, 4, 5, 6, 7, 8]
+
+//flatMap() :-> combination of map and flat method
+
+//sort() method :-> Sorting arrays
+const owner = ['Jonas', 'Zach', 'Adam', 'Martha'];
+console.log(owner.sort()); //[ 'Adam', 'Jonas', 'Martha', 'Zach' ]
+console.log(owner);
+
+//sort numbers in array
+const num = [1, 3, 4, 2, 5, 6, 9, 8, 7];
+
+//accending order
+console.log(
+  num.sort((a, b) => {
+    // return a - b;
+    if (a > b) return 1;
+    if (a < b) return -1;
+  })
+); //[1, 2, 3, 4, 5,6, 7, 8, 9]
+
+//sortin array in descending order
+console.log(
+  num.sort((a, b) => {
+    // return b - a;
+    if (a > b) return -1;
+    if (a < b) return 1;
+  })
+); //[9, 8, 7, 6, 5, 4, 3, 2, 1]
+
+//Create empty array and fill it using fill() method
+const x = new Array(7); //array with 7 element size
+console.log(x); //[ <7 empty items> ]
+
+//fill() method: -> it fill element in array
+// x.fill(1);
+// console.log(x);//[1, 1, 1, 1, 1, 1, 1];
+
+x.fill(1, 3);
+console.log(x); //[ <3 empty items>, 1, 1, 1, 1 ]
+
+x.fill(1, 3, 5);
+console.log(x); //[ <3 empty items>, 1, 1, <2 empty items> ]
+
+//Array.from
+const y = Array.from({ length: 7 }, () => 1);
+console.log(y); //[1, 1, 1, 1, 1, 1, 1];
+
+const z = Array.from({ length: 8 }, (_, i) => i + 1);
+console.log(z); //[1, 2, 3, 4, 5, 6, 7, 8]
