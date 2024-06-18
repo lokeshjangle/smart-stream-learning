@@ -30,3 +30,33 @@ console.log(future.getTime()); //2142237180000
 console.log(new Date(2142237180000).toDateString()); //Thu Nov 19 2037
 
 console.log(Date.now()); //1718631315444 --> current time stamp
+
+//Operation over the dates
+console.log(Number(future));
+
+const calcDaysPassed = (date1, date2) =>
+  Math.abs(date2 - date1) / (1000 * 60 * 60 * 24);
+
+const days1 = calcDaysPassed(new Date(2002, 8, 12), new Date(2024, 8, 12));
+console.log(days1);
+
+//International dates API
+let newDate = new Intl.DateTimeFormat('en-IN').format(now); //18/6/2024
+console.log(newDate);
+
+const options = {
+  hour: 'numeric',
+  minute: 'numeric',
+  day: 'numeric',
+  month: 'long', //2-digit: 08, numeric: 8
+  year: 'numeric', //2-digit: 24
+  weekday: 'long',
+};
+// newDate = new Intl.DateTimeFormat('mr-IN', options).format(now); //मंगळवार, १८ जून, २०२४ रोजी ११:१७ AM
+
+newDate = new Intl.DateTimeFormat('en-IN', options).format(now); //Tuesday 18 June, 2024 at 11:16 am
+console.log(newDate);
+
+// const locals = navigator.language; //--> to identify local time-zone using browser
+// newDate = new Intl.DateTimeFormat(locals, options).format(now); //Tuesday 18 June, 2024 at 11:16 am
+// console.log(newDate);

@@ -97,3 +97,9 @@ console.log(diameter); //287460000000
 console.log(1_0 + 20); //30
 
 console.log(Number('234_343')); //NaN
+
+//International Number formation
+
+const num = 3884764.23;
+console.log('US:    ', new Intl.NumberFormat('en-US').format(num));
+console.log(num);
