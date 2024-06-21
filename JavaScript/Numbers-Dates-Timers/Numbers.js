@@ -70,7 +70,7 @@ console.log(randomInt(2, 20));
 console.log(Math.round(23.3)); //23
 console.log(Math.round(23.7)); //24
 
-//ceil() method --> Round as a bigger intger
+//ceil() method --> Round as a bigger integer
 console.log(Math.ceil(23.3)); //24
 console.log(Math.ceil(23.7)); //24
 
