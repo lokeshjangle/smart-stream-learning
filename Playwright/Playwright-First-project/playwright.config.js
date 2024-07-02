@@ -31,7 +31,7 @@ export default defineConfig({
     browserName: 'chromium',
     // browserName: 'firefox',
     // browserName: 'webkit', //default playwright specific engine
-    headless: true,
+    headless: false,
   },
 
   // /* Configure projects for major browsers */
