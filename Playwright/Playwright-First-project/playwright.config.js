@@ -32,6 +32,9 @@ export default defineConfig({
     // browserName: 'firefox',
     // browserName: 'webkit', //default playwright specific engine
     headless: false,
+    screenshot: 'on', //To take screenshot of all action which will perform
+    // trace: 'on', //Trace all action
+    trace: 'retain-on-failure', //Trace only on failure
   },
 
   // /* Configure projects for major browsers */
