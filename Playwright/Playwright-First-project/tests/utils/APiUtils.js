@@ -1,4 +1,5 @@
 class APiUtils {
+  // constructor(){}
   constructor(apiContext, loginPayLoad) {
     this.apiContext = apiContext;
     this.loginPayLoad = loginPayLoad;
@@ -6,7 +7,7 @@ class APiUtils {
 
   //get Token
   async getToken() {
-    const loginResponse = await this.expectapiContext.post(
+    const loginResponse = await this.apiContext.post(
       `https://rahulshettyacademy.com/api/ecom/auth/login`,
       {
         data: this.loginPayLoad,
@@ -14,7 +15,7 @@ class APiUtils {
     );
     // expect(loginResponse.ok()).toBeTruthy(); //assertion for check response return 200,201 status code
     const loginResponseJson = await loginResponse.json();
-    token = loginResponseJson.token;
+    const token = loginResponseJson.token;
     console.log(token);
     return token;
   }
@@ -36,10 +37,10 @@ class APiUtils {
     // expect(orderResponse.ok()).toBeTruthy();
     const orderResponseJson = await orderResponse.json();
     console.log(orderResponseJson);
-    orderId = orderResponseJson.orders[0];
+    const orderId = orderResponseJson.orders[0];
     response.orderId = orderId;
     return response;
   }
 }
 
-export default { APIUtils };
+module.exports = { APiUtils };

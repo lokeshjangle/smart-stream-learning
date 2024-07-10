@@ -11,25 +11,23 @@ const searchOption = async function (
       break;
     }
   }
-  // for (let i = 0; i < optionCount; ++i) {
-  //   const option: string | null = await spanLocator.nth(i).textContent();
-  //   if (option?.includes(value)) {
-  //     await spanLocator.nth(i).click();
-  //     // await page.pause();
-  //     break;
-  //   }
-  // }
 };
 
-test('login and create currency', async function ({ page }) {
+test('login and create currency', async function ({ page }): Promise<void> {
   const userName: string = 'USER5';
   const password: string = 'password';
-  const currency: string = 'LOK';
-  const decimalPlace: number = 2;
-  const redominationCurrency: string = 'GUN';
-  const redominationCurrencyRate: number = 2.25;
-
-  page.goto('https://192.168.111.114:8443/recs-ui/');
+  const currency: {
+    newCurrency: string;
+    decimalPlace: number;
+    redominationCurrency: string;
+    redominationCurrencyRate: number;
+  } = {
+    newCurrency: 'LOK', //put all in one object currency
+    decimalPlace: 2,
+    redominationCurrency: 'AAA',
+    redominationCurrencyRate: 2.25,
+  };
+  page.goto('https://192.168.109.202:8443/recs-ui/ ');
 
   //Login
   const login = async function (
@@ -65,7 +63,7 @@ test('login and create currency', async function ({ page }) {
 
   //Create currency
   const createCurrency = async function (
-    currency: string,
+    newCurrency: string,
     decimalPlace: number,
     redominationCurrency: string,
     redominationCurrencyRate: number
@@ -76,9 +74,8 @@ test('login and create currency', async function ({ page }) {
 
     await page
       .locator('//*[@data-locator="currency-input"]//input')
-      .fill(currency);
-    const saveButton: string =
-      '//*[@data-locator="currency-form-button-toolbar"]//button//span[normalize-space(text())="Save"]'; //doubt
+      .fill(newCurrency);
+    const saveButton: string = '//span[normalize-space(text())="Save"]'; //doubt
     await expect(page.locator(saveButton)).toBeVisible();
 
     const decimalPlaceInput: string =
@@ -97,8 +94,7 @@ test('login and create currency', async function ({ page }) {
     await searchOption(decimalPlaceSpan, decimalPlace.toString());
 
     //Redomination Currency
-    const redInput: string =
-      '//*[@data-locator="redenom-code-dropdown"]//input'; //Redomination input field
+    const redInput: string = '//*[@data-locator="redenom-code-drpdown"]//input'; //Redomination input field
     await page.locator(redInput).pressSequentially(redominationCurrency);
 
     const redominationCurrencyDropdown: Locator = page.locator(
@@ -119,7 +115,7 @@ test('login and create currency', async function ({ page }) {
       .locator('//*[@data-locator="description-input"]//textarea')
       .fill(`${currency} currency`);
 
-    // await page.locator(saveButton).click();
+    await page.locator(saveButton).click();
   };
 
   //Quick Filter Currency
@@ -137,15 +133,15 @@ test('login and create currency', async function ({ page }) {
   await clickOnLookup();
   await clickOnCurrency();
   await createCurrency(
-    currency,
-    decimalPlace,
-    redominationCurrency,
-    redominationCurrencyRate
+    currency.newCurrency,
+    currency.decimalPlace,
+    currency.redominationCurrency,
+    currency.redominationCurrencyRate
   );
-  // await quickFilter(currency);
+  await quickFilter(currency.newCurrency);
 
   const date: string | null = await page
-    .locator(`//tlmv-list-item-date-field`)
+    .locator(`//tlmv-list-item-dte-field`)
     .first()
     .textContent();
   console.log(date);

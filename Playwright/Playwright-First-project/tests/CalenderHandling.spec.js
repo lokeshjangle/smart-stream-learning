@@ -11,8 +11,8 @@ test('Calender Validation', async function ({ page }) {
   await page.locator(`//div[@class="react-date-picker__inputGroup"]`).click();
 
   const navigationLabel = `//button[@class="react-calendar__navigation__label"]`;
-  await page.locator(navigationLabel).click();
-  await page.locator(navigationLabel).click();
+  // await page.locator(navigationLabel).click();
+  await page.locator(navigationLabel).dblclick();
   await page.getByText(year).click();
   await page
     .locator(`//button[contains(@class,"react-calendar__year-view__month")]`)
@@ -27,5 +27,5 @@ test('Calender Validation', async function ({ page }) {
     const value = inputs[index].getAttribute(value);
     expect(value).toEqual(expectedList[index]);
   }
-  await page.pause();
+  // await page.pause();
 });

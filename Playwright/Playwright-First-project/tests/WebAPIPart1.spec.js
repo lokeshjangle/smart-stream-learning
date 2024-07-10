@@ -1,5 +1,5 @@
 import { test, expect, request } from '@playwright/test';
-import APiUtils from './utils/APiUtils';
+import { APiUtils } from './utils/APiUtils';
 const loginPayLoad = {
   userEmail: 'lokeshjangle@gmail.com',
   userPassword: 'Lokesh@123',
@@ -13,7 +13,7 @@ let response;
 
 test.beforeAll(async () => {
   //Login API
-  const apiContext = await request.newContext();
+  const apiContext = await request.newContext(); //create context from request
   // const loginResponse = await apiContext.post(
   //   `https://rahulshettyacademy.com/api/ecom/auth/login`,
   //   {
@@ -74,7 +74,7 @@ test('Client App login', async ({ page }) => {
   }
 
   const orderIdDetails = await page.locator('.col-text').textContent();
-  expect(orderId.includes(orderIdDetails)).toBeTruthy();
+  expect(response.orderId.includes(orderIdDetails)).toBeTruthy();
   await page.pause();
   page.pause();
 });
