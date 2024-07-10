@@ -1,6 +1,6 @@
 import test from '@playwright/test';
 
-test('Playwright Special Locators', async function ({ page }) {
+test.only('Playwright Special Locators', async function ({ page }) {
   await page.goto(`https://rahulshettyacademy.com/angularpractice/`);
 
   //.getByLabel()
@@ -18,5 +18,13 @@ test('Playwright Special Locators', async function ({ page }) {
   await page
     .getByText('Success! The Form has been submitted successfully!.')
     .isVisible();
+
+  await page.getByRole('link', { name: 'Shop' }).click();
+
+  await page
+    .locator(`//app-card`)
+    .filter({ hasText: 'Nokia Edge' })
+    .getByRole('button', { name: 'Add' })
+    .click();
   await page.pause();
 });

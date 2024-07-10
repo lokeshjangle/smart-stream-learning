@@ -1,18 +1,26 @@
-import test, { expect } from '@playwright/test';
+import test, { expect, Locator } from '@playwright/test';
 const searchOption = async function (
-  optionCount: number,
-  spanLocator,
+  spanLocator: Locator,
   value: string
 ): Promise<void> {
-  for (let i = 0; i < optionCount; ++i) {
-    const option: string = await spanLocator.nth(i).textContent();
+  for (const optionElement of await spanLocator.all()) {
+    const option: string | null = await optionElement.textContent();
     if (option?.includes(value)) {
-      await spanLocator.nth(i).click();
+      await optionElement.click();
       // await page.pause();
       break;
     }
   }
+  // for (let i = 0; i < optionCount; ++i) {
+  //   const option: string | null = await spanLocator.nth(i).textContent();
+  //   if (option?.includes(value)) {
+  //     await spanLocator.nth(i).click();
+  //     // await page.pause();
+  //     break;
+  //   }
+  // }
 };
+
 test('login and create currency', async function ({ page }) {
   const userName: string = 'USER5';
   const password: string = 'password';
@@ -22,7 +30,12 @@ test('login and create currency', async function ({ page }) {
   const redominationCurrencyRate: number = 2.25;
 
   page.goto('https://192.168.111.114:8443/recs-ui/');
-  const login = async function (userName: string, password: string) {
+
+  //Login
+  const login = async function (
+    userName: string,
+    password: string
+  ): Promise<void> {
     await page
 
       .locator('//input[normalize-space(@placeholder)="Username..."]')
@@ -35,11 +48,15 @@ test('login and create currency', async function ({ page }) {
       .locator('//button//span[normalize-space(text())="Login"]')
       .click();
   };
-  const clickOnLookup = async function () {
+
+  //open Lookup
+  const clickOnLookup = async function (): Promise<void> {
     //Click on lookups
     await page.locator('//a[@id="lnkStaticDataPage"]//div').click();
   };
-  const clickOnCurrency = async function () {
+
+  //Swich to currency tab
+  const clickOnCurrency = async function (): Promise<void> {
     //Click on currency
     await page
       .locator('//nav//span[normalize-space(text())="CURRENCY"]')
@@ -52,7 +69,7 @@ test('login and create currency', async function ({ page }) {
     decimalPlace: number,
     redominationCurrency: string,
     redominationCurrencyRate: number
-  ) {
+  ): Promise<void> {
     await page
       .locator('//button//span[normalize-space(text())="Create Currency"]')
       .click();
@@ -61,42 +78,39 @@ test('login and create currency', async function ({ page }) {
       .locator('//*[@data-locator="currency-input"]//input')
       .fill(currency);
     const saveButton: string =
-      '//*[@data-locator="currency-form-button-toolbar"]//button//span[normalize-space(text())="Save"]';
+      '//*[@data-locator="currency-form-button-toolbar"]//button//span[normalize-space(text())="Save"]'; //doubt
     await expect(page.locator(saveButton)).toBeVisible();
 
     const decimalPlaceInput: string =
-      '//*[@data-locator="decimals-dropdown"]//input';
+      '//*[@data-locator="decimals-dropdown"]//input'; //decimalPlace input field
     const parentDiv: string =
-      '//ancestor::div//following-sibling::div[@class="cdk-overlay-container"]';
+      '//ancestor::div//following-sibling::div[@class="cdk-overlay-container"]'; //Highest parent div
     await page
       .locator(decimalPlaceInput)
       .pressSequentially(decimalPlace.toString());
-    const decimalPlaceDropdown = page.locator(decimalPlaceInput + parentDiv);
-    const decimalPlaceSpan = decimalPlaceDropdown.locator('//span');
-    const decimalPlaceOptionCount: number = await decimalPlaceSpan.count();
-    await searchOption(
-      decimalPlaceOptionCount,
-      decimalPlaceSpan,
-      decimalPlace.toString()
+
+    const decimalPlaceDropdown: Locator = page.locator(
+      decimalPlaceInput + parentDiv
     );
+    const decimalPlaceSpan: Locator = decimalPlaceDropdown.locator('//span');
+    // const decimalPlaceOptionCount: number = await decimalPlaceSpan.count();
+    await searchOption(decimalPlaceSpan, decimalPlace.toString());
 
     //Redomination Currency
     const redInput: string =
-      '//*[@data-locator="redenom-code-dropdown"]//input';
+      '//*[@data-locator="redenom-code-dropdown"]//input'; //Redomination input field
     await page.locator(redInput).pressSequentially(redominationCurrency);
 
-    const redominationCurrencyDropdown = page.locator(redInput + parentDiv);
+    const redominationCurrencyDropdown: Locator = page.locator(
+      redInput + parentDiv
+    ); //Redomiation currency dropdown
 
-    const redominationCurrencySpan =
-      redominationCurrencyDropdown.locator('//span');
-    const redominationOptionCount: number =
-      await redominationCurrencySpan.count();
-    console.log(redominationOptionCount);
-    await searchOption(
-      redominationOptionCount,
-      redominationCurrencySpan,
-      redominationCurrency
-    );
+    const redominationCurrencySpan: Locator =
+      redominationCurrencyDropdown.locator('//span'); //redomination currency span folder
+    // const redominationOptionCount: number =
+    // await redominationCurrencySpan.count();
+    // console.log(redominationOptionCount);
+    await searchOption(redominationCurrencySpan, redominationCurrency);
     await page
       .locator('//*[@data-locator="redenom-rate-input"]//input')
       .fill(redominationCurrencyRate.toString());
@@ -109,7 +123,7 @@ test('login and create currency', async function ({ page }) {
   };
 
   //Quick Filter Currency
-  const quickFilter = async function (currency: string) {
+  const quickFilter = async function (currency: string): Promise<void> {
     await page
       .locator('//div[@class="tlmv-c-editable-text-content ng-star-inserted"]')
       .click();
@@ -122,15 +136,18 @@ test('login and create currency', async function ({ page }) {
   await login(userName, password);
   await clickOnLookup();
   await clickOnCurrency();
-  // await createCurrency(
-  //   currency,
-  //   decimalPlace,
-  //   redominationCurrency,
-  //   redominationCurrencyRate
-  // );
-  await quickFilter(currency);
+  await createCurrency(
+    currency,
+    decimalPlace,
+    redominationCurrency,
+    redominationCurrencyRate
+  );
+  // await quickFilter(currency);
 
-  const date = await page.locator(`//tlmv-list-item-date-field`).textContent();
+  const date: string | null = await page
+    .locator(`//tlmv-list-item-date-field`)
+    .first()
+    .textContent();
   console.log(date);
   await page.pause();
 });
