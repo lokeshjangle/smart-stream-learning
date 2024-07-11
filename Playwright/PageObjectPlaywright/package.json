@@ -1,0 +1,19 @@
+{
+  "name": "playwright-first-project",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx playwright test tests/WebAPIPart1.spec.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@playwright/test": "^1.45.0",
+    "@types/node": "^20.14.9"
+  },
+  "dependencies": {
+    "debug": "^4.3.5"
+  }
+}
