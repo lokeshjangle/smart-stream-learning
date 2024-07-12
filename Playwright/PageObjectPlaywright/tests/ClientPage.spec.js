@@ -4,7 +4,6 @@ test('Browser Context-Validating Error Login', async ({ page }) => {
   const productName = 'IPHONE 13 PRO';
   const email = 'lokeshjangle@gmail.com';
   const products = page.locator('//div[@class="card-body"]');
-  const loginPage = new LoginPage();
   await page.goto('https://rahulshettyacademy.com/client');
 
   await page.locator('#userEmail').fill(email);

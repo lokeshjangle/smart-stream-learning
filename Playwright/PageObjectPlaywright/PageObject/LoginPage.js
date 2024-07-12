@@ -1,13 +1,22 @@
 class LoginPage {
   constructor(page) {
-    this.signInbutton = page.locator("[value='Login']");
-    this.userName = page.locator('#userEmail');
-    this.password = page.locator('#userPassword');
+    this.page = page;
+    this.userName = this.page.locator('#userEmail');
+    this.password = this.page.locator('#userPassword');
+    this.signInbutton = this.page.locator("[value='Login']");
+    this.cardBody = this.page.locator('.card-body b');
   }
 
-  validLogin() {
-    page.locator('#userEmail').fill(email);
-    page.locator('#userPassword').fill('Lokesh@123');
-    page.locator("[value='Login']").click();
+  async goTo() {
+    await this.page.goto('https://rahulshettyacademy.com/client');
+  }
+
+  async validLogin(email, password) {
+    await this.userName.fill(email);
+    await this.password.fill(password);
+    await this.signInbutton.click();
+    await this.cardBody.first().waitFor();
   }
 }
+
+export { LoginPage };

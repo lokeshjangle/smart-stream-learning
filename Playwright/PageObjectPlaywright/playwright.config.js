@@ -33,8 +33,13 @@ export default defineConfig({
     // browserName: 'webkit', //default playwright specific engine
     headless: false,
     screenshot: 'on', //To take screenshot of all action which will perform
+    video: 'retain-on-failure', //capture viedo on failure
     // trace: 'on', //Trace all action
     trace: 'retain-on-failure', //Trace only on failure
+    // viewport: { width: 720, height: 720 }, //setting browser window size
+    // ...devices['Galaxy S9+'], //setting dimension for particular mobile
+    ignoreHTTPSErrors: true, //Ignore HTTPS error or bypass SSL certification
+    permissions: ['geolocation'], //Allow location popup
   },
 
   // /* Configure projects for major browsers */
