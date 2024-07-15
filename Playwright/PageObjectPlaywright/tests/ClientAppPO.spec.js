@@ -12,7 +12,7 @@ for (const data of dataset) {
     const loginPage = poManager.getLoginPage();
     await loginPage.goTo();
     await loginPage.validLogin(data.email, data.password);
-    await page.pause();
+    // await page.pause();
 
     //Dashboard page
     const dashboardPage = poManager.getDashboardPage();
@@ -32,6 +32,6 @@ for (const data of dataset) {
     await ordersPage.navigateToOrders();
     await ordersPage.searchOrderByOrderId(orderId);
     await ordersPage.orderSummary(orderId);
-    await page.pause();
+    // await page.pause();
   });
 }

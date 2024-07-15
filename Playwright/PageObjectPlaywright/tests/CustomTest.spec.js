@@ -9,7 +9,7 @@ customTest(`Client App Login `, async ({ page, testDataForOrder }) => {
   const loginPage = poManager.getLoginPage();
   await loginPage.goTo();
   await loginPage.validLogin(testDataForOrder.email, testDataForOrder.password);
-  await page.pause();
+  // await page.pause();
 
   //Dashboard page
   const dashboardPage = poManager.getDashboardPage();

@@ -83,12 +83,12 @@ test('Browser Context-Validating Error Login', async ({ page }) => {
         .locator('//button[normalize-space(text())="View"]')
         .click();
       console.log('view button clicked');
-      await page.pause();
+      // await page.pause();
       break;
     }
   }
 
   const orderIdDetails = await page.locator('.col-text').textContent();
   expect(orderId.includes(orderIdDetails)).toBeTruthy();
-  await page.pause();
+  // await page.pause();
 });
