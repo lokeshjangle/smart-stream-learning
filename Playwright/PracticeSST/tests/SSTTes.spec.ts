@@ -94,7 +94,8 @@ test('login and create currency', async function ({ page }): Promise<void> {
     await searchOption(decimalPlaceSpan, decimalPlace.toString());
 
     //Redomination Currency
-    const redInput: string = '//*[@data-locator="redenom-code-drpdown"]//input'; //Redomination input field
+    const redInput: string =
+      '//*[@data-locator="redenom-code-dropdown"]//input'; //Redomination input field
     await page.locator(redInput).pressSequentially(redominationCurrency);
 
     const redominationCurrencyDropdown: Locator = page.locator(

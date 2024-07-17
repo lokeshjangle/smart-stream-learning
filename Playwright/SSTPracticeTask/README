@@ -1,0 +1,37 @@
+import { test, expect } from '@playwright/test';
+
+test('test', async ({ page }) => {
+await page.goto('https://192.168.109.202:8443/recs-ui/');
+await page.goto('https://192.168.109.202:8443/tlm-services/idp/');
+await page.goto('https://192.168.109.202:8443/tlm-services/idp/#/login');
+await page.getByPlaceholder('Username...').click();
+await page.getByPlaceholder('Username...').press('CapsLock');
+await page.getByPlaceholder('Username...').fill('USER5');
+await page.getByPlaceholder('Password...').click();
+await page.getByPlaceholder('Password...').press('CapsLock');
+await page.getByPlaceholder('Password...').fill('password');
+await page.getByRole('button', { name: 'Login' }).click();
+await page.getByRole('link', { name: 'Lookups' }).click();
+await page.locator('a').filter({ hasText: 'CURRENCY' }).click();
+await page.getByRole('button', { name: 'Create Currency' }).click();
+await page.locator('tlmv-container').getByRole('textbox').first().click();
+await page.locator('tlmv-container').getByRole('textbox').first().press('CapsLock');
+await page.locator('tlmv-container').getByRole('textbox').first().fill('YES');
+await page.locator('tlmv-form-field').filter({ hasText: 'Decimal Places' }).getByRole('textbox').click();
+await page.locator('tlmv-form-field').filter({ hasText: 'Decimal Places' }).getByRole('textbox').fill('2');
+await page.locator('#cdk-overlay-55').getByText('2').click();
+await page.locator('tlmv-form-field').filter({ hasText: 'Redenomination Currency' }).getByRole('textbox').click();
+await page.locator('tlmv-form-field').filter({ hasText: 'Redenomination Currency' }).getByRole('textbox').fill('LOK');
+await page.locator('tlmv-form-field').filter({ hasText: 'Redenomination Currency' }).getByRole('textbox').click();
+await page.getByText('Currency Decimal Places Redenomination Currency Redenomination Rate Description').click();
+await page.locator('tlmv-form-field').filter({ hasText: 'Redenomination Currency' }).getByRole('textbox').click();
+await page.locator('tlmv-form-field').filter({ hasText: 'Redenomination Currency' }).getByRole('textbox').fill('lok');
+await page.locator('#cdk-overlay-56').getByText('LOK').click();
+await page.locator('tlmv-form-field').filter({ hasText: 'Redenomination Rate' }).getByRole('textbox').click();
+await page.locator('tlmv-form-field').filter({ hasText: 'Redenomination Rate' }).getByRole('textbox').fill('2.25');
+await page.locator('textarea').click();
+await page.locator('textarea').click();
+await page.locator('tlmv-container').getByRole('textbox').first().click();
+await page.locator('tlmv-container').getByRole('textbox').first().fill('AAA');
+await page.getByRole('button', { name: 'Save' }).click();
+});
