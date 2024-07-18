@@ -1,11 +1,7 @@
-import test from '@playwright/test';
-import { POManager } from '../PageObjectModel/POManager';
-import { LoginPage } from '../PageObjectModel/LoginPage';
-import { HomePage } from '../PageObjectModel/HomePage';
-import { LookupsPage } from '../PageObjectModel/LookupsPage';
-import { CurrencyDetails } from '../PageObjectModel/CurrencyDetails';
+import { test } from '../PageObjectModel/Fixture';
+import { CurrencyDetails } from '../PageObjectModel/CurrencyPage';
 
-test('TCA183633', async function ({ page }) {
+test('TCA183633', async function ({ loginPage, homePage, currencyPage }) {
   //Variable declaration
   const userDetails: {
     userName: string;
@@ -19,30 +15,19 @@ test('TCA183633', async function ({ page }) {
     decimalPlace: 2,
     redominationCurrency: 'LOK',
     redominationCurrencyRate: 2.25,
+    description: `${this.currency} currency`,
   };
-  let loginPage: LoginPage;
-  let homePage: HomePage;
-  let lookupPage: LookupsPage;
-
-  // await page.pause();
-
-  //Test written
-  const poManager: POManager = new POManager(page);
 
   //Login Page
-  loginPage = await poManager.getLoginPage();
-  await loginPage.goTo();
-  await loginPage.validateLogin(userDetails.userName, userDetails.password);
+  await loginPage.goToLoginPage();
+  await loginPage.Login(userDetails.userName, userDetails.password);
 
   //Home Page
-  homePage = await poManager.getHomePage();
   await homePage.navigateToLookups();
 
   //Lookup Page
-  lookupPage = await poManager.getLookupPage();
-  await lookupPage.navigateToCurrency();
-  await lookupPage.createCurrency(currencyDetails);
-  await lookupPage.quickFilter(currencyDetails.currency);
-  await lookupPage.verifyDate();
-  await page.pause();
+  await currencyPage.navigateToCurrency();
+  await currencyPage.createCurrency(currencyDetails);
+  await currencyPage.quickFilter(currencyDetails.currency);
+  await currencyPage.verifyDateForActiveFrom();
 });

@@ -1,7 +1,14 @@
 import { expect, Locator, Page } from '@playwright/test';
-import { CurrencyDetails } from './CurrencyDetails';
+// import { CurrencyDetails } from './CurrencyDetails';
+type CurrencyDetails = {
+  currency: string;
+  decimalPlace: 0 | 1 | 2 | 3;
+  redominationCurrency: string;
+  redominationCurrencyRate: number;
+  description: string;
+};
 
-export class LookupsPage {
+class CurrencyPage {
   private readonly page: Page;
   private readonly currencyTab: Locator;
   private readonly createCurrencyButton: Locator;
@@ -77,43 +84,44 @@ export class LookupsPage {
     this.dateLocator = this.page.locator(`//tlmv-list-item-date-field`);
   }
 
+  //Navigate To Currency Tab
   async navigateToCurrency() {
     await this.currencyTab.click();
   }
 
+  //Create new currency
   async createCurrency(currencyDetails: CurrencyDetails) {
+    const {
+      currency,
+      decimalPlace,
+      redominationCurrency,
+      redominationCurrencyRate,
+      description,
+    }: CurrencyDetails = currencyDetails;
+
     await this.createCurrencyButton.click();
-    await this.currencyInput.fill(currencyDetails.currency);
+    await this.currencyInput.fill(currency);
     await expect(this.saveButton).toBeVisible();
     await this.decimalPlaceInput.pressSequentially(
       currencyDetails.decimalPlace.toString()
     );
-    await this.selectionList
-      .getByText(currencyDetails.decimalPlace.toString())
-      .click();
+    await this.selectionList.getByText(decimalPlace.toString()).click();
 
     await this.redominationCurrencyInput.pressSequentially(
-      currencyDetails.redominationCurrency
+      redominationCurrency
     );
-    await this.selectionList
-      .getByText(currencyDetails.redominationCurrency)
-      .click();
+    await this.selectionList.getByText(redominationCurrency).click();
 
-    await this.redenomRateInput.fill(
-      currencyDetails.redominationCurrencyRate.toString()
-    );
-    await this.currencyDescription.fill(`${currencyDetails.currency} currency`);
+    await this.redenomRateInput.fill(redominationCurrencyRate.toString());
+    await this.currencyDescription.fill(description);
 
     this.dateString = new Date().toLocaleDateString(
       'en-US',
       this.currencyCreationDate
     );
 
-    console.log(this.dateString);
-
     await this.saveButton.click();
-    const msg: string | null = await this.saveMessage.textContent();
-    console.log(msg?.trim());
+    expect(this.saveMessage).toHaveText(' Currency saved successfully ');
     await this.page.locator('tlmv-inspector i').first().click();
   }
 
@@ -124,17 +132,9 @@ export class LookupsPage {
     await this.filteredCurrency.getByText(currency).waitFor();
   }
 
-  async verifyDate() {
-    const currencyDate: string | null = await this.dateLocator
-      .first()
-      .textContent();
-    console.log('curr ' + currencyDate);
-    console.log(this.dateString);
-    expect(currencyDate?.trim()).toBe(this.dateString);
-    if (currencyDate?.trim() === this.dateString) {
-      console.log('Correct date');
-    } else {
-      console.log('Wrong Date');
-    }
+  async verifyDateForActiveFrom() {
+    expect(this.dateLocator).toHaveText(this.dateString);
   }
 }
+
+export { CurrencyPage, CurrencyDetails };

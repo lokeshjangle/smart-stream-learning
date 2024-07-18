@@ -13,11 +13,12 @@ export class LoginPage {
     this.signIn = this.page.getByRole('button', { name: 'Login' });
   }
 
-  async goTo() {
+  async goToLoginPage() {
     await this.page.goto('https://192.168.109.202:8443/recs-ui/');
   }
 
-  async validateLogin(userName: string, password: string) {
+  /* Validate Login*/
+  async Login(userName: string, password: string) {
     await this.userName.fill(userName);
     await this.password.fill(password);
     await this.signIn.click();

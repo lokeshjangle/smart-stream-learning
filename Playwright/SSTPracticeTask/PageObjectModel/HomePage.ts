@@ -6,7 +6,7 @@ export class HomePage {
 
   constructor(page: Page) {
     this.page = page;
-    this.lookupButton = this.page.locator(`//a[@ui-sref="recs.lookups"]//div`);
+    this.lookupButton = this.page.getByRole('link', { name: 'Lookups' });
   }
 
   async navigateToLookups() {
