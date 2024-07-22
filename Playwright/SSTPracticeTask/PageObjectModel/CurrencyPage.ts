@@ -2,27 +2,28 @@ import { expect, Locator, Page } from '@playwright/test';
 // import { CurrencyDetails } from './CurrencyDetails';
 type CurrencyDetails = {
   currency: string;
-  decimalPlace: 0 | 1 | 2 | 3;
-  redominationCurrency: string;
-  redominationCurrencyRate: number;
-  description: string;
+  decimalPlace?: 0 | 1 | 2 | 3;
+  redominationCurrency?: string;
+  redominationCurrencyRate?: number;
+  description?: string;
 };
 
 class CurrencyPage {
   private readonly page: Page;
-  private readonly currencyTab: Locator;
+  private readonly lookupButton: Locator;
   private readonly createCurrencyButton: Locator;
-  private readonly currencyInput: Locator;
   private readonly saveButton: Locator;
-  private readonly decimalPlaceInput: Locator;
-  private readonly selectionList: Locator;
-  private readonly redominationCurrencyInput: Locator;
-  private readonly redenomRateInput: Locator;
-  private readonly currencyDescription: Locator;
+  private readonly currencyTextBox: Locator;
+  private readonly decimalPlaceTextBox: Locator;
+  private readonly redominationCurrencyTextBox: Locator;
+  private readonly redenomRateTextBox: Locator;
+  private readonly currencyDescriptionTextarea: Locator;
+  private readonly currencyTab: Locator;
+  private readonly suggestionList: Locator;
   private readonly quickFilterField: Locator;
-  private readonly quickFilterInput: Locator;
+  private readonly quickFilterTextBox: Locator;
   private readonly dateLocator: Locator;
-  private readonly saveMessage: Locator;
+  private readonly saveMessagePopup: Locator;
   private readonly filteredCurrency: Locator;
 
   private currencyCreationDate: Intl.DateTimeFormatOptions = {
@@ -31,50 +32,48 @@ class CurrencyPage {
     year: 'numeric',
   };
 
-  dateString: string;
+  private dateString: string;
 
   constructor(page: Page) {
     this.page = page;
-    this.currencyTab = this.page.getByText('CURRENCY');
+    this.lookupButton = this.page.getByRole('link', { name: 'Lookups' });
 
     this.createCurrencyButton = this.page.getByRole('button', {
       name: 'Create Currency',
     });
+    this.saveButton = this.page.getByRole('button', { name: 'Save' });
 
-    this.currencyInput = this.page.locator(
+    this.currencyTextBox = this.page.locator(
       `//tlmv-input[@data-locator="currency-input"]//input`
     );
 
-    this.saveButton = this.page.getByRole('button', { name: 'Save' });
-
-    this.decimalPlaceInput = this.page.locator(
+    this.decimalPlaceTextBox = this.page.locator(
       `//tlmv-select[@data-locator="decimals-dropdown"]//input`
     );
 
-    this.selectionList = this.page.locator(`//tlmv-suggestion-list`);
-
-    this.redominationCurrencyInput = this.page.locator(
+    this.redominationCurrencyTextBox = this.page.locator(
       `//tlmv-select[@data-locator="redenom-code-dropdown"]//input`
     );
 
-    this.redenomRateInput = this.page.locator(
+    this.redenomRateTextBox = this.page.locator(
       `//tlmv-input[@data-locator="redenom-rate-input"]//input`
     );
 
-    this.currencyDescription = this.page.locator(
+    this.quickFilterTextBox = this.page.locator(
+      `//tlmv-input[@data-locator="quick-filter-input"]//input`
+    );
+    this.currencyDescriptionTextarea = this.page.locator(
       `//tlmv-textarea[@data-locator="description-input"]//textarea`
     );
 
-    this.saveMessage = this.page.getByRole('alert');
-    // this.quickFilterField = this.page.locator(
-    // `//span[normalize-space(text())='Quick Filter...']`);
+    this.currencyTab = this.page.getByText('CURRENCY');
 
-    this.quickFilterField = this.page
-      .locator('span')
-      .filter({ hasText: ' Quick Filter... ' });
+    this.suggestionList = this.page.locator(`//tlmv-suggestion-list`);
 
-    this.quickFilterInput = this.page.locator(
-      `//tlmv-input[@data-locator="quick-filter-input"]//input`
+    this.saveMessagePopup = this.page.getByRole('alert');
+
+    this.quickFilterField = this.page.locator(
+      `.tlmrecs-c-quick-filter-editable span:visible`
     );
 
     this.filteredCurrency = this.page.locator(
@@ -84,9 +83,19 @@ class CurrencyPage {
     this.dateLocator = this.page.locator(`//tlmv-list-item-date-field`);
   }
 
+  //Navigate to Lookups
+  async navigateToLookups() {
+    await this.lookupButton.click();
+  }
+
   //Navigate To Currency Tab
-  async navigateToCurrency() {
+  async navigateToCurrencyTab() {
     await this.currencyTab.click();
+  }
+
+  //Validate the popup
+  async validatePopup(message: string) {
+    await expect(this.saveMessagePopup).toHaveText(message);
   }
 
   //Create new currency
@@ -100,20 +109,26 @@ class CurrencyPage {
     }: CurrencyDetails = currencyDetails;
 
     await this.createCurrencyButton.click();
-    await this.currencyInput.fill(currency);
+    await this.currencyTextBox.fill(currency);
     await expect(this.saveButton).toBeVisible();
-    await this.decimalPlaceInput.pressSequentially(
-      currencyDetails.decimalPlace.toString()
+    await this.decimalPlaceTextBox.pressSequentially(
+      decimalPlace ? decimalPlace.toString() : ''
     );
-    await this.selectionList.getByText(decimalPlace.toString()).click();
+    await this.suggestionList
+      .getByText(decimalPlace ? decimalPlace.toString() : '')
+      .click();
 
-    await this.redominationCurrencyInput.pressSequentially(
-      redominationCurrency
+    await this.redominationCurrencyTextBox.pressSequentially(
+      redominationCurrency ? redominationCurrency : ''
     );
-    await this.selectionList.getByText(redominationCurrency).click();
+    await this.suggestionList
+      .getByText(redominationCurrency ? redominationCurrency : '')
+      .click();
 
-    await this.redenomRateInput.fill(redominationCurrencyRate.toString());
-    await this.currencyDescription.fill(description);
+    await this.redenomRateTextBox.fill(
+      redominationCurrencyRate ? redominationCurrencyRate.toString() : ''
+    );
+    await this.currencyDescriptionTextarea.fill(description ? description : '');
 
     this.dateString = new Date().toLocaleDateString(
       'en-US',
@@ -121,19 +136,21 @@ class CurrencyPage {
     );
 
     await this.saveButton.click();
-    expect(this.saveMessage).toHaveText(' Currency saved successfully ');
+
     await this.page.locator('tlmv-inspector i').first().click();
   }
 
+  //Filter currency
   async quickFilter(currency: string) {
-    await this.quickFilterField.last().click();
-    await this.quickFilterInput.fill(currency);
+    await this.quickFilterField.click();
+    await this.quickFilterTextBox.fill(currency);
 
     await this.filteredCurrency.getByText(currency).waitFor();
   }
 
-  async verifyDateForActiveFrom() {
-    expect(this.dateLocator).toHaveText(this.dateString);
+  //Verify and validate date
+  async verifyDateForActiveFrom(dateString = this.dateString) {
+    await expect(this.dateLocator).toHaveText(dateString);
   }
 }
 
