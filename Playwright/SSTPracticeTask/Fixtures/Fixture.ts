@@ -13,7 +13,6 @@ export const test = basetest.extend<Fixtures>({
   loginPage: async ({ page }, use) => {
     await use(new LoginPage(page));
   },
-
   currencyPage: async ({ page }, use) => {
     await use(new CurrencyPage(page));
   },

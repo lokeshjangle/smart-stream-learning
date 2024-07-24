@@ -18,7 +18,7 @@ export class LoginPage {
   }
 
   /* Validate Login*/
-  async Login(userName: string, password: string) {
+  async login(userName: string, password: string) {
     await this.userName.fill(userName);
     await this.password.fill(password);
     await this.signIn.click();
