@@ -1,0 +1,11 @@
+Hello Lokesh
+How are you
+My name is lokesh
+My favourite fruit is mango
+
+
+--- User Details ---
+Name: Lokesh
+Location: Mumbai, Maharashtra, India
+Favourite Fruit: Mango
+

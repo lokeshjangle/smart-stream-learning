@@ -1,0 +1,3 @@
+[submodule "AI/MCP_learning/mcpServerDeploy"]
+	path = AI/MCP_learning/mcpServerDeploy
+	url = https://github.com/lokeshjangle/mcp-server-example.git

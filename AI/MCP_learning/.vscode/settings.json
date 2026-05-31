@@ -1,0 +1,14 @@
+{
+  "kiroAgent.agentAutonomy": "Supervised",
+  "kiroAgent.enableDebugLogs": true,
+  "kiroAgent.enableTabAutocomplete": true,
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.wordWrap": "on",
+  "editor.formatOnPaste": true,
+  "editor.formatOnType": true,
+  "python.autoComplete.extraPaths": [],
+  "[python]": {
+    "editor.formatOnSave": true
+  }
+}
